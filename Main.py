@@ -43,7 +43,7 @@ async def on_message(message):
         g.pull()
         #subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
         #exit()
-        os.execv(sys.executable, *sys.argv)
+        os.execv(__file__,sys.argv)
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
