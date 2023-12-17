@@ -1,5 +1,6 @@
 import discord
 import os
+import sys
 import subprocess
 import random
 from HungerGamesClasses import Player, GameManager, clean_input_for_games
@@ -38,7 +39,7 @@ async def on_message(message):
 
     if message.content == "-update":
         subprocess.call(["sh", "./update.sh"])
-        exit
+        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
