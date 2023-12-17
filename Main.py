@@ -39,7 +39,7 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message.content == "-updatebot":
-        g = git.cmd.Git(git.git_dir)
+        g = git.cmd.Git("/home/oreo/Desktop/DiscordBot/DiscordBotTest")
         g.pull()
         #subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
         #exit()
