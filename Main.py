@@ -37,7 +37,7 @@ async def on_message(message):
     print("message sent", message.content)
 
     if message.content == "-update":
-        subprocess.call("update.sh")
+        subprocess.call(["sh", "./update.sh"])
         exit
 
     rand_num = random.randrange(0, 500)
