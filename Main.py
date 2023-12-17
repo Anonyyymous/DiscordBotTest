@@ -37,9 +37,10 @@ async def on_message(message):
     message_count += 1
     print(message.author, ": ", message.content)
 
-    if message.content == "-update":
-        subprocess.call(["sh", "./update.sh"])
-        os.execv(sys.executable, ['python'] + sys.argv)
+    if message.content == "-updatebot":
+        subprocess.call(["/bin/bash", "./update.sh"], shell=True)
+        exit()
+        os.execv(sys.executabl, ['python'] + sys.argv)
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
@@ -49,6 +50,7 @@ async def on_message(message):
         message_count = 0
         save_names(["ash", "sofia"], [ash_count, sofia_count])
         print("names saved")
+    
     FuF = ["fucku", "fuckyou"]
 
     message_contents_full = message.content.lower()
@@ -76,6 +78,7 @@ async def on_message(message):
 
     elif message.author.id == ids["isaac"] and "ash" in message_contents_full:  # because he could say 'a sheep' for example
         ash_count+=1
+        await message.channel.send("such a fucking simp")
     elif message.author.id != ids["lauren"] and message_contents == "-summon isaac":
         print("summoning isaac")
         await message.channel.send("<@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286>")
