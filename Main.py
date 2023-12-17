@@ -5,7 +5,7 @@ from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
 
 # im going to regret this
-token = "ODEwOTAyMDEyOTI0Nzg4NzY2.Gotwxi.OfWPaqBXckU4LU-g_f8bfA2Wa48vAAEB7ekYJY"
+token = os.getenv(‘Key’)
 
 intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
