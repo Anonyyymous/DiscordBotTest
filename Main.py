@@ -35,7 +35,7 @@ async def on_message(message):
     
     global ash_count, message_count, playing_hunger_games, game_manager
     message_count += 1
-    print("message sent", message.content)
+    print(message.author, ": ", message.content)
 
     if message.content == "-update":
         subprocess.call(["sh", "./update.sh"])
