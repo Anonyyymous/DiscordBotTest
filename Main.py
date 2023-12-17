@@ -1,11 +1,12 @@
 import discord
 import os
+import subprocess
 import random
 from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
 
 # im going to regret this
-token = os.getenv(‘KEY’)
+token = 'ODEwOTAyMDEyOTI0Nzg4NzY2.GqfvPF.esX1Iiz6K9IFQTOZCSo0HEOfoZoKwWKek3KtRY'
 
 intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
@@ -31,6 +32,9 @@ async def on_message(message):
     global ash_count, message_count, playing_hunger_games, game_manager
     message_count += 1
     print("message sent", message.content)
+
+    if message.content == "-update":
+        subprocess.call("./update.sh")
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
