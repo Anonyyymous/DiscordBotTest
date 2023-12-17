@@ -38,7 +38,7 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message.content == "-updatebot":
-        subprocess.call(["/bin/bash", "./update.sh"], shell=True)
+        subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
         exit()
         os.execv(sys.executabl, ['python'] + sys.argv)
 
