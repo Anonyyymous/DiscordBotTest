@@ -39,7 +39,7 @@ async def on_message(message):
 
     if message.content == "-update":
         subprocess.call(["sh", "./update.sh"])
-        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
+        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv[1:]) 
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
