@@ -7,7 +7,9 @@ from TimetableChecker import get_day
 
 # im going to regret this
 tokenPath = "/home/oreo/Desktop/DiscordBot/token.txt"
-token = os.open(tokenPath, os.O_RDONLY).read
+file = os.open(tokenPath, os.O_RDONLY)
+token = os.read(file)
+os.close(file)
 
 intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
