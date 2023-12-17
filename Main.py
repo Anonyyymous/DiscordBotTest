@@ -1,5 +1,6 @@
 import discord
 import os
+import git
 import sys
 import subprocess
 import random
@@ -38,9 +39,11 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message.content == "-updatebot":
-        subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
-        exit()
-        os.execv(sys.executabl, ['python'] + sys.argv)
+        g = git.cmd.Git(git.git_dir)
+        g.pull()
+        #subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
+        #exit()
+        os.execv(sys.executable, *sys.argv)
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
