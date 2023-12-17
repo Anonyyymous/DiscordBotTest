@@ -6,7 +6,8 @@ from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
 
 # im going to regret this
-token = 'ODEwOTAyMDEyOTI0Nzg4NzY2.GqfvPF.esX1Iiz6K9IFQTOZCSo0HEOfoZoKwWKek3KtRY'
+tokenPath = "~/Desktop/DiscordBot/token.txt"
+token = os.open(tokenPath).read
 
 intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
@@ -35,6 +36,7 @@ async def on_message(message):
 
     if message.content == "-update":
         subprocess.call("./update.sh")
+        exit
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
