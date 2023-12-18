@@ -43,6 +43,12 @@ async def on_ready():  # executed on bot setup
     await channel.send(client.user.display_name + " up and running.")
     # await client.user.edit(username="John's assistant")
 
+async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
+    if channel.id == 1186331140030746764:
+        return
+    await channel.send(random.choice(text))
+
+
 @client.event
 async def on_message(message):
     if message.author == client.user or message.channel.id == 1186331140030746764:  # for bot-free zone, could be loaded into a json later for bot-free channels
@@ -67,7 +73,8 @@ async def on_message(message):
                 if str(message.author.id) in response[1].split('__') or response[1] == "all":
                     if random.random() < float(response[2]):
                         answers = response[3].split('__')
-                        await message.channel.send(random.choice(answers))
+                        # await message.channel.send(random.choice(answers))
+                        await send(message.channel, random.choice(answers))
 
     '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
     nameCounters = namesCountFile.readlines()
@@ -107,20 +114,24 @@ async def on_message(message):
 
     # random responses
     if rand_num == 69:
-        await message.channel.send("kill yourself - wiktor")
+        # await message.channel.send("kill yourself - wiktor")
+        await send(message.channel, "kill yourself - wiktor")
 
     # activities
     if "-hungergames" == message_contents[:12]:
         if playing_hunger_games:
             # -hungergames|john|isaac|lauren|wiktor|george|kerry|biggie dikkie mikkie|matteo|filip
             output, playing_hunger_games = game_manager.play_round()
-            await message.channel.send(output)
+            # await message.channel.send(output)
+            await send(message.channel, output)
         else:
             playing_hunger_games = True
             game_manager = GameManager(clean_input_for_games(message_contents))
-            await message.channel.send(game_manager.play_round()[0])
+            # await message.channel.send(game_manager.play_round()[0])
+            await send(message.channel, game_manager.play_round()[0])
     elif "-timetable" == message_contents:
-        await message.channel.send(get_day())
+        # await message.channel.send(get_day())
+        await send(message.channel, get_day())
     elif message_contents == "-counters":
         '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
         nameCounters = namesCountFile.readlines()
@@ -132,6 +143,7 @@ async def on_message(message):
             for keyword in counters[key]:
                 text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
         # text = [f"{key}|{value.key}" for (key, value) in [for]]
-        await message.channel.send(text)
+        # await message.channel.send(text)
+        await send(message.channel, text)
 
 client.run(token)
