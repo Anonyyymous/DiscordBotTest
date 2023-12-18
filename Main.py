@@ -48,15 +48,7 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message_contents == "-updatebot":
-        '''
-        (explain whats going one here, once it works)
-        '''
-        g = git.cmd.Git("/home/oreo/Desktop/DiscordBot/DiscordBotTest")
-        g.pull()
-        #subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
-        #exit()
-        os.execv(__file__,sys.argv)
-        return
+        exit()
 
     rand_num = random.randrange(0, 500)
 
