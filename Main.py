@@ -48,7 +48,7 @@ async def on_message(message):
     message_contents_full = message.content.lower()
     message_contents = message.content.lower().strip()
     
-    print(message.author + ": " + message.content)
+    print(message.author.name + ": " + message.content)
 
     if message_contents == "-updatebot":
         await message.reply("Restarting...")
