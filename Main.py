@@ -63,7 +63,7 @@ async def on_message(message):
             print("Checking " + responses[i].split('<>')[0].split('//')[j])
             if responses[i].split('<>')[0].split('//')[j] in message_contents:
                 print("Found " + responses[i].split('<>')[0].split('//')[j] + " in message.")
-                if message.author.id in responses[i].split('<>')[1].split('//'):
+                if str(message.author.id) in responses[i].split('<>')[1].split('//'):
                     print("Correct id.")
                     if random.random() < responses[i].split('<>')[2]:
                         answers = responses[i].split('<>')[3].split('//')
