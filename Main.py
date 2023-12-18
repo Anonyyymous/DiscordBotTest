@@ -59,14 +59,16 @@ async def on_message(message):
         exit()
 
     for i in range(len(responses)):
-        for j in range(len(responses[i].split('<>')[0].split('//'))):
-            print("Checking " + responses[i].split('<>')[0].split('//')[j])
-            if responses[i].split('<>')[0].split('//')[j] in message_contents:
-                print("Found " + responses[i].split('<>')[0].split('//')[j] + " in message.")
-                if str(message.author.id) in responses[i].split('<>')[1].split('//'):
+        response = responses[i].split('<>')
+        words = response[0].split('//')
+        for j in range(len(words)):
+            print("Checking " + words[j])
+            if words[j] in message_contents:
+                print("Found " + words[j] + " in message.")
+                if str(message.author.id) in response[1].split('//') or response[1] == "all":
                     print("Correct id.")
-                    if random.random() < float(responses[i].split('<>')[2]):
-                        answers = responses[i].split('<>')[3].split('//')
+                    if random.random() < float(response[2]):
+                        answers = response[3].split('//')
                         await message.channel.send(random.choice(answers))
 
     rand_num = random.randrange(0, 500)
@@ -79,20 +81,9 @@ async def on_message(message):
         message_count = 0
         save_names(["ash"], [ash_count])
         print("names saved")
-    
-    FuF = ["fucku", "fuckyou"]
-
-    # responses
-    if message_contents in FuF:
-        await message.channel.send("not if i fuck you first")
-        print("successfully fucked")
-    elif message_contents == "kys":
-        await message.channel.send("awww keep yourself safe so sweet")
-    elif "good morning" in message_contents:
-        await message.channel.send("go die")
 
     # activities
-    elif "-hungergames" == message_contents[:12]:
+    if "-hungergames" == message_contents[:12]:
         if playing_hunger_games:
             # -hungergames|john|isaac|lauren|wiktor|george|kerry|biggie dikkie mikkie|matteo|filip
             output, playing_hunger_games = game_manager.play_round()
@@ -103,20 +94,6 @@ async def on_message(message):
             await message.channel.send(game_manager.play_round()[0])
     elif "-timetable" == message_contents:
         await message.channel.send(get_day())
-
-    # id specific messages
-    elif message.author.id == ids["isaac"] and "ash" in message_contents_full:  # using message_contens_full, because he could say 'a sheep' for example
-        ash_count+=1
-        ashResponses = [
-            "such a fucking simp",
-            "bUt ShE's So PrEtTy stfu",
-            "she don't love you little bro",
-            "unbelivably down bad"
-        ]
-        await message.channel.send(random.choice(ashResponses))
-    elif message.author.id != ids["lauren"] and message_contents == "-summon isaac":  # heheheha
-        print("summoning isaac")
-        await message.channel.send("<@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286>")
 
     # displaying counters
     elif message_contents == "-update":  # this could be removed
