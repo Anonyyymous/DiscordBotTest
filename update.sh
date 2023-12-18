@@ -8,7 +8,7 @@ cd "$LOCAL_DIR"
 while :
 do
     git add NamesCount.txt
-    gid commit
+    git commit
     git push
     git pull
     python3 "$LOCAL_DIR/Main.py"
