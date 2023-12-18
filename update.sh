@@ -7,9 +7,6 @@ cd "$LOCAL_DIR"
 
 while :
 do
-    git add NamesCount.txt
-    git commit -m "Names count sync."
-    git push
     git pull
     python3 "$LOCAL_DIR/Main.py"
     sleep 1s
