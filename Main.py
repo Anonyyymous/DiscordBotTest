@@ -73,17 +73,17 @@ async def on_message(message):
                         await message.channel.send(random.choice(answers))
 
     for i in range(len(nameCounters)):
-        currentNameCounter = nameCounters[i]
+        currentNameCounter = nameCounters[i].replace('\n', '')
         if currentNameCounter == "\n":
             continue
         identifier = currentNameCounter.split('|')[0]
         if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
-            currentNameCounter = int(identifier.split('-')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
+            nameCounters[i] = int(identifier.split('-')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
 
     namesCountText = ""
-    for i in range(len(nameCounters)):
+    for i in range(len(nameCounters) - 1):
         namesCountText += nameCounters[i] + '\n'
-    namesCountText = namesCountText[:-2]
+    namesCountText += nameCounters[-1]
 
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "w")
     namesCountFile.write(namesCountText)
