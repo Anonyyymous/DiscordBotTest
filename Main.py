@@ -1,11 +1,17 @@
 import discord
 import os
+import git
+import sys
+import subprocess
 import random
 from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
 
 # im going to regret this
-token = "ODEwOTAyMDEyOTI0Nzg4NzY2.Gotwxi.OfWPaqBXckU4LU-g_f8bfA2Wa48vAAEB7ekYJY"
+tokenPath = "/home/oreo/Desktop/DiscordBot/token.txt"
+file = open(tokenPath, "r")
+token = file.readline()
+file.close()
 
 intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
@@ -30,7 +36,14 @@ async def on_message(message):
     
     global ash_count, message_count, playing_hunger_games, game_manager
     message_count += 1
-    print("message sent", message.content)
+    print(message.author, ": ", message.content)
+
+    if message.content == "-updatebot":
+        g = git.cmd.Git("/home/oreo/Desktop/DiscordBot/DiscordBotTest")
+        g.pull()
+        #subprocess.Popen(["/bin/bash", "./update.sh"], shell=True)
+        #exit()
+        os.execv(__file__,sys.argv)
 
     rand_num = random.randrange(0, 500)
     if rand_num == 69:
@@ -40,6 +53,7 @@ async def on_message(message):
         message_count = 0
         save_names(["ash", "sofia"], [ash_count, sofia_count])
         print("names saved")
+    
     FuF = ["fucku", "fuckyou"]
 
     message_contents_full = message.content.lower()
@@ -67,6 +81,7 @@ async def on_message(message):
 
     elif message.author.id == ids["isaac"] and "ash" in message_contents_full:  # because he could say 'a sheep' for example
         ash_count+=1
+        await message.channel.send("such a fucking simp")
     elif message.author.id != ids["lauren"] and message_contents == "-summon isaac":
         print("summoning isaac")
         await message.channel.send("<@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286>")
