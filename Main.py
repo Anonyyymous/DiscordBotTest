@@ -97,7 +97,7 @@ async def on_message(message):
                 nameCounters[i] = nameCounters[i].split('|')[0] + "|" + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
             print("ERROR IDK")'''
-    await send(message.channel, "cring rn")
+    # await send(message.channel, "cring rn")
     for key in counters.keys():
         if ids[key] == str(message.author.id):  # use actual names for more readability
             await message.channel.send(f"{key} said something !!")
