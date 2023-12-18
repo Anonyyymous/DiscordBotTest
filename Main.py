@@ -47,7 +47,7 @@ async def on_ready():  # executed on bot setup
 async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
     if channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
         return
-    await channel.send(random.choice(text))
+    await channel.send(text)
 
 
 @client.event
