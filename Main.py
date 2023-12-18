@@ -120,7 +120,8 @@ async def on_message(message):
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "w")
     namesCountFile.write(namesCountText)
     namesCountFile.close()'''
-    with open('local_names_count.json', 'w') as f:
+    
+    with open('local_names_count.json', 'w+') as f:
         json.dump(counters, f)
 
     
