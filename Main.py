@@ -122,7 +122,13 @@ async def on_message(message):
     #    save_names(["ash"], [ash_count])
     #    print("names saved")
     elif message_contents == "-counters":
-        await message.channel.send(f"ash count: {ash_count}")
+        namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
+        nameCounters = namesCountFile.readlines()
+        namesCountFile.close()
+        text = ""
+        for i in range(len(nameCounters)):
+            text += nameCounters[i]
+        await message.channel.send(text)
 
 def get_names():
     if os.path.exists(stored_file_name):
