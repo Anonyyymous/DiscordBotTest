@@ -119,8 +119,8 @@ async def on_message(message):
 
     # random responses
     if rand_num == 69:
-        # await message.channel.send("kill yourself - wiktor")
-        await send(message.channel, "kill yourself - wiktor")
+        await message.channel.send("kill yourself - wiktor")
+        # await send(message.channel, "kill yourself - wiktor")
 
     # activities
     if "-hungergames" == message_contents[:12]:
@@ -149,7 +149,7 @@ async def on_message(message):
             for keyword in counters[key]:
                 text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
         # text = [f"{key}|{value.key}" for (key, value) in [for]]
-        # await message.channel.send(text)
-        await send(message.channel, text)
+        await message.channel.send(text)
+        # await send(message.channel, text)
 
 client.run(token)
