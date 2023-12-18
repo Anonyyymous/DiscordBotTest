@@ -51,8 +51,8 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message_contents == "-updatebot":
-        message.channel.send("Restarting...")
-        await client.logout()
+        await message.channel.send("Restarting...")
+        await client.close()
         exit()
 
     rand_num = random.randrange(0, 500)
