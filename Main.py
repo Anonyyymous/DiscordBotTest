@@ -30,9 +30,15 @@ responses = responsesFile.readlines()
 responsesFile.close()
 
 counters = {}
-with open('names_count.json', 'r') as f:
-    # Reading from json file
-    counters = json.load(f)
+
+if os.path.exists('local_names_count.json'):
+    with open('local_names_count.json', 'r') as f:
+        # Reading from json file
+        counters = json.load(f)
+else:
+    with open('names_count.json', 'r') as f:
+        # Reading from json file
+        counters = json.load(f)
 
 @client.event
 async def on_ready():  # executed on bot setup
@@ -48,6 +54,9 @@ async def send(channel, text):  # might need to @client.event wrapper but dont t
     if channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
         return
     await channel.send(text)
+
+async def log(text):
+    await client.get_channel(1186359268073554071).send(text)
 
 
 @client.event
@@ -111,7 +120,7 @@ async def on_message(message):
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "w")
     namesCountFile.write(namesCountText)
     namesCountFile.close()'''
-    with open('names_count.json', 'w') as f:
+    with open('local_names_count.json', 'w') as f:
         json.dump(counters, f)
 
     
