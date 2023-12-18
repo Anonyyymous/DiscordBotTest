@@ -75,11 +75,11 @@ async def on_message(message):
     for i in range(len(nameCounters)):
         try:
             currentNameCounter = nameCounters[i].replace('\n', '')
-            if currentNameCounter == "\n":
+            if currentNameCounter == "":
                 continue
             identifier = currentNameCounter.split('|')[0]
             if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
-                nameCounters[i] = int(identifier.split('-')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
+                nameCounters[i] = nameCounters[i].split('|')[0] + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
             print("ERROR IDK")
 
