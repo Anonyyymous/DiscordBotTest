@@ -62,11 +62,8 @@ async def on_message(message):
         response = responses[i].split('<>')
         words = response[0].split('//')
         for j in range(len(words)):
-            print("Checking " + words[j])
             if words[j] in message_contents:
-                print("Found " + words[j] + " in message.")
                 if str(message.author.id) in response[1].split('//') or response[1] == "all":
-                    print("Correct id.")
                     if random.random() < float(response[2]):
                         answers = response[3].split('//')
                         await message.channel.send(random.choice(answers))
