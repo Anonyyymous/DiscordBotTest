@@ -43,7 +43,7 @@ async def on_ready():  # executed on bot setup
     await channel.send(client.user.display_name + " up and running.")
     # await client.user.edit(username="John's assistant")
 
-@client.command(pass_context=True)  # idk i stole it from online :p
+# @client.command(pass_context=True)  # idk i stole it from online :p
 async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
     if channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
         return
@@ -55,10 +55,10 @@ async def on_message(message):
     if message.author == client.user:  # for bot-free zone, could be loaded into a json later for bot-free channels
         return
     
-    async def send(text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
+    '''async def send(text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
         if message.channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
             return
-        await message.channel.send(random.choice(text))
+        await message.channel.send(random.choice(text))'''
     
     global playing_hunger_games, game_manager, counters
     message_contents_full = message.content.lower()
