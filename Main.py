@@ -90,12 +90,12 @@ async def on_message(message):
     # id specific messages
     elif message.author.id == ids["isaac"] and "ash" in message_contents_full:  # using message_contens_full, because he could say 'a sheep' for example
         ash_count+=1
-        ashResponses = {
-            1:"such a fucking simp",
-            2:"bUt ShE's So PrEtTy stfu",
-            3:"she don't love you little bro",
-            4:"unbelivably down bad"
-        }
+        ashResponses = [
+            "such a fucking simp",
+            "bUt ShE's So PrEtTy stfu",
+            "she don't love you little bro",
+            "unbelivably down bad"
+        ]
         await message.channel.send(random.choice(ashResponses))
     elif message.author.id != ids["lauren"] and message_contents == "-summon isaac":  # heheheha
         print("summoning isaac")
