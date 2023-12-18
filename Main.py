@@ -58,8 +58,8 @@ async def on_message(message):
         await client.close()
         exit()
 
-    for i in responses:
-        if responses[i].split('<>')[0] in message_contents and message.author.id in responses[i].split('<>')[1]:
+    for i in range(len(responses)):
+        if responses[i].split('<>')[0].split('//') in message_contents and message.author.id in responses[i].split('<>')[1].split('//'):
             if random.random() < responses[i].split('<>')[2]:
                 answers = responses[i].split('<>')[3].split('//')
                 await message.channel.send(random.choice(answers))
