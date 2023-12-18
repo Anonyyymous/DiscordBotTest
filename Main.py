@@ -80,7 +80,6 @@ async def on_message(message):
                     if random.random() < float(response[2]):
                         answers = response[3].split('__')
                         await send(message.channel, random.choice(answers))
-                        # await send(message.channel, random.choice(answers))
 
     '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
     nameCounters = namesCountFile.readlines()
@@ -120,23 +119,19 @@ async def on_message(message):
 
     # random responses
     if rand_num == 69:
-        await message.channel.send("kill yourself - wiktor")
-        # await send(message.channel, "kill yourself - wiktor")
+        await send(message.channel, "kill yourself - wiktor")
 
     # activities
     if "-hungergames" == message_contents[:12]:
         if playing_hunger_games:
             # -hungergames|john|isaac|lauren|wiktor|george|kerry|biggie dikkie mikkie|matteo|filip
             output, playing_hunger_games = game_manager.play_round()
-            # await message.channel.send(output)
             await send(message.channel, output)
         else:
             playing_hunger_games = True
             game_manager = GameManager(clean_input_for_games(message_contents))
-            # await message.channel.send(game_manager.play_round()[0])
             await send(message.channel, game_manager.play_round()[0])
     elif "-timetable" == message_contents:
-        # await message.channel.send(get_day())
         await send(message.channel, get_day())
     elif message_contents == "-counters":
         '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
@@ -149,8 +144,6 @@ async def on_message(message):
         for key in counters:
             for keyword in counters[key]:
                 text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
-        # text = [f"{key}|{value.key}" for (key, value) in [for]]
         await send(message.channel, text)
-        # await send(message.channel, text)
 
 client.run(token)
