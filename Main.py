@@ -74,7 +74,7 @@ async def on_message(message):
 
     for i in range(len(nameCounters)):
         if nameCounters[i].split('|')[0].split('-')[1] in message_contents and nameCounters[i].split('|')[0].split('-')[0] == str(message.author.id):
-            nameCounters[i] = nameCounters[i].split('|')[0] + int(nameCounters[i].split('|')[1]) + message_contents.count(nameCounters[i].split('|')[0].split('-')[1])
+            nameCounters[i] = int(nameCounters[i].split('|')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(nameCounters[i].split('|')[0].split('-')[1])
 
     namesCountText = ""
     for i in range(len(nameCounters)):
