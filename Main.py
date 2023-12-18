@@ -19,9 +19,7 @@ client = discord.Client(intents=intents)
 
 # initialising other variables
 ids = {"john": 331837038024327182, "lauren": 423146074233110528, "isaac": 386783880637579286}
-message_count = 0
 playing_hunger_games = False
-ash_count = 0
 game_manager = None
 
 thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -29,8 +27,6 @@ thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 responsesFile = open(os.path.join(thisDir, "responses.txt"), "r")
 responses = responsesFile.readlines()
 responsesFile.close()
-
-stored_file_name = os.path.realpath(os.path.join(thisDir, "NamesCount.txt"))  # i think just "NamesCount.txt" should work, im not sure what prompted this
 
 @client.event
 async def on_ready():  # executed on bot setup
@@ -46,8 +42,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    global ash_count, message_count, playing_hunger_games, game_manager
-    message_count += 1
+    global playing_hunger_games, game_manager
     message_contents_full = message.content.lower()
     message_contents = message.content.lower().strip()
     
@@ -99,11 +94,6 @@ async def on_message(message):
     if rand_num == 69:
         await message.channel.send("kill yourself - wiktor")
 
-    #if message_count == 15:  # not necessary now, might remove, or make it random
-    #    message_count = 0
-    #    save_names(["ash"], [ash_count])
-    #    print("names saved")
-
     # activities
     if "-hungergames" == message_contents[:12]:
         if playing_hunger_games:
@@ -116,12 +106,6 @@ async def on_message(message):
             await message.channel.send(game_manager.play_round()[0])
     elif "-timetable" == message_contents:
         await message.channel.send(get_day())
-
-    # displaying counters
-    #elif message_contents == "-update":  # this could be removed
-    #    message_count = 0
-    #    save_names(["ash"], [ash_count])
-    #    print("names saved")
     elif message_contents == "-counters":
         namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
         nameCounters = namesCountFile.readlines()
@@ -130,22 +114,5 @@ async def on_message(message):
         for i in range(len(nameCounters)):
             text += nameCounters[i]
         await message.channel.send(text)
-
-def get_names():
-    if os.path.exists(stored_file_name):
-        global ash_count
-        with open(stored_file_name, "r") as f:
-            lines = f.readlines()
-            ash_count = int(lines[0].split("|")[1])
-            print("read file")
-            print(f"names = {ash_count}")
-    else:
-        save_names(["ash"], [38])
-
-def save_names(names, numbers):
-    with open(stored_file_name, "w") as f:
-        for i in range(len(names)):
-            f.write(f"{names[i]}|{numbers[i]}\n")
-        print("created file")
 
 client.run(token)
