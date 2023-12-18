@@ -52,7 +52,7 @@ async def send(channel, text):  # might need to @client.event wrapper but dont t
 
 @client.event
 async def on_message(message):
-    if message.author == client.user or message.channel.id != 1181162678740324392:  # for bot-free zone, could be loaded into a json later for bot-free channels
+    if message.author == client.user:  # for bot-free zone, could be loaded into a json later for bot-free channels
         return
     
     '''async def send(text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
@@ -79,7 +79,7 @@ async def on_message(message):
                 if str(message.author.id) in response[1].split('__') or response[1] == "all":
                     if random.random() < float(response[2]):
                         answers = response[3].split('__')
-                        await message.channel.send(random.choice(answers))
+                        await send(message.channel, random.choice(answers))
                         # await send(message.channel, random.choice(answers))
 
     '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
@@ -97,17 +97,10 @@ async def on_message(message):
                 nameCounters[i] = nameCounters[i].split('|')[0] + "|" + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
             print("ERROR IDK")'''
-    # await send(message.channel, "cring rn")
-    if message_contents == "-tree":
-        await send(message.channel, str(counters))
     for key in counters.keys():
-        # await message.channel.send(f"{key}/{ids[key]}, {message.author.id}, {ids[key] == message.author.id}")
         if ids[key] == message.author.id:  # use actual names for more readability
-            await message.channel.send(f"{key} said something !!")
             for keyword in counters[key].keys():
-                
                 if keyword in message_contents:
-                    await message.channel.send(f"{key} said {keyword} !!")
                     counters[key][keyword] += 1
 
 
@@ -157,7 +150,7 @@ async def on_message(message):
             for keyword in counters[key]:
                 text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
         # text = [f"{key}|{value.key}" for (key, value) in [for]]
-        await message.channel.send(text)
+        await send(message.channel, text)
         # await send(message.channel, text)
 
 client.run(token)
