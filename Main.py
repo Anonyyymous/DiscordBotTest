@@ -35,7 +35,7 @@ stored_file_name = os.path.realpath(os.path.join(thisDir, "NamesCount.txt"))  # 
 @client.event
 async def on_ready():  # executed on bot setup
     print("logged in as {0.user}".format(client))
-    get_names()
+    #get_names()
     await client.wait_until_ready()
     channel = client.get_channel(1181162678740324392)
     await channel.send(client.user.display_name + " up and running.")
