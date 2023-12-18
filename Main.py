@@ -78,8 +78,8 @@ async def on_message(message):
                 if str(message.author.id) in response[1].split('__') or response[1] == "all":
                     if random.random() < float(response[2]):
                         answers = response[3].split('__')
-                        # await message.channel.send(random.choice(answers))
-                        await send(message.channel, random.choice(answers))
+                        await message.channel.send(random.choice(answers))
+                        # await send(message.channel, random.choice(answers))
 
     '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
     nameCounters = namesCountFile.readlines()
