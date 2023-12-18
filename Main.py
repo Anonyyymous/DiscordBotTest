@@ -45,7 +45,7 @@ async def on_ready():  # executed on bot setup
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == client.user or message.channel.id == 1186331140030746764:  # for bot-free zone, could be loaded into a json later for bot-free channels
         return
     
     global playing_hunger_games, game_manager, counters
@@ -69,11 +69,11 @@ async def on_message(message):
                         answers = response[3].split('__')
                         await message.channel.send(random.choice(answers))
 
-    namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
+    '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
     nameCounters = namesCountFile.readlines()
     namesCountFile.close()
 
-    '''for i in range(len(nameCounters)):
+    for i in range(len(nameCounters)):
         try:
             currentNameCounter = nameCounters[i].replace('\n', '')
             if currentNameCounter == "":
@@ -122,12 +122,16 @@ async def on_message(message):
     elif "-timetable" == message_contents:
         await message.channel.send(get_day())
     elif message_contents == "-counters":
-        namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
+        '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
         nameCounters = namesCountFile.readlines()
         namesCountFile.close()
         text = ""
         for i in range(len(nameCounters)):
-            text += "<@" + nameCounters[i].split('|')[0].split('-')[0] + "> " + nameCounters[i].split('|')[0].split('-')[1] + " count: " + nameCounters[i].split('|')[1]
+            text += "<@" + nameCounters[i].split('|')[0].split('-')[0] + "> " + nameCounters[i].split('|')[0].split('-')[1] + " count: " + nameCounters[i].split('|')[1]'''
+        for key in counters:
+            for keyword in counters[key]:
+                text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
+        # text = [f"{key}|{value.key}" for (key, value) in [for]]
         await message.channel.send(text)
 
 client.run(token)
