@@ -141,9 +141,10 @@ async def on_message(message):
         '''namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
         nameCounters = namesCountFile.readlines()
         namesCountFile.close()
-        text = ""
+        
         for i in range(len(nameCounters)):
             text += "<@" + nameCounters[i].split('|')[0].split('-')[0] + "> " + nameCounters[i].split('|')[0].split('-')[1] + " count: " + nameCounters[i].split('|')[1]'''
+        text = ""
         for key in counters:
             for keyword in counters[key]:
                 text += f"{key}|{keyword}:{counters[key][keyword]}\n"  # also doesnt @ them
