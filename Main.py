@@ -98,6 +98,8 @@ async def on_message(message):
         except:
             print("ERROR IDK")'''
     # await send(message.channel, "cring rn")
+    if message_contents == "-tree":
+        await send(message.channel, str(counters))
     for key in counters.keys():
         if ids[key] == str(message.author.id):  # use actual names for more readability
             await message.channel.send(f"{key} said something !!")
