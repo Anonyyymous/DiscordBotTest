@@ -24,6 +24,12 @@ playing_hunger_games = False
 ash_count = 0
 game_manager = None
 
+responsesFile = open(os.path.join(os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))), "responses.txt"), "r")
+responses = responsesFile.readlines()
+responsesFile.close()
+
+print(responses)
+
 stored_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "NamesCount.txt")  # i think just "NamesCount.txt" should work, im not sure what prompted this
 
 @client.event
@@ -51,6 +57,12 @@ async def on_message(message):
         await message.reply("Restarting...")
         await client.close()
         exit()
+
+    for i in responses:
+        if responses[i].split('<>')[0] in message_contents and message.author.id in responses[i].split('<>')[1]:
+            if random.random() < responses[i].split('<>')[2]:
+                answers = responses[i].split('<>')[3].split('//')
+                await message.channel.send(random.choice(answers))
 
     rand_num = random.randrange(0, 500)
 
