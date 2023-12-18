@@ -73,8 +73,12 @@ async def on_message(message):
                         await message.channel.send(random.choice(answers))
 
     for i in range(len(nameCounters)):
-        if nameCounters[i].split('|')[0].split('-')[1] in message_contents and nameCounters[i].split('|')[0].split('-')[0] == str(message.author.id):
-            nameCounters[i] = int(nameCounters[i].split('|')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(nameCounters[i].split('|')[0].split('-')[1])
+        currentNameCounter = nameCounters[i]
+        if currentNameCounter == "\n":
+            continue
+        identifier = currentNameCounter.split('|')[0]
+        if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
+            currentNameCounter = int(identifier) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
 
     namesCountText = ""
     for i in range(len(nameCounters)):
