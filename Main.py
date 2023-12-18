@@ -3,6 +3,7 @@ import os
 import random
 from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
+import json
 
 # im going to regret this
 tokenPath = "/home/oreo/Desktop/DiscordBot/token.txt"  # could at some point replace with an if statement, so this works on my pc as well without replacing the code with the token
@@ -28,6 +29,11 @@ responsesFile = open(os.path.join(thisDir, "responses.txt"), "r")
 responses = responsesFile.readlines()
 responsesFile.close()
 
+counters = {}
+with open('names_count.json', 'r') as f:
+    # Reading from json file
+    counters = json.load(f)
+
 @client.event
 async def on_ready():  # executed on bot setup
     print("logged in as {0.user}".format(client))
@@ -42,7 +48,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     
-    global playing_hunger_games, game_manager
+    global playing_hunger_games, game_manager, counters
     message_contents_full = message.content.lower()
     message_contents = message.content.lower().strip()
     
@@ -57,7 +63,7 @@ async def on_message(message):
         response = responses[i].split('<>')
         words = response[0].split('__')
         for j in range(len(words)):
-            if words[j] in message_contents:
+            if words[j] in message_contents_full:  # using full so it ignores spaces for yu huh, etc
                 if str(message.author.id) in response[1].split('__') or response[1] == "all":
                     if random.random() < float(response[2]):
                         answers = response[3].split('__')
@@ -67,7 +73,7 @@ async def on_message(message):
     nameCounters = namesCountFile.readlines()
     namesCountFile.close()
 
-    for i in range(len(nameCounters)):
+    '''for i in range(len(nameCounters)):
         try:
             currentNameCounter = nameCounters[i].replace('\n', '')
             if currentNameCounter == "":
@@ -77,16 +83,25 @@ async def on_message(message):
                 print(identifier.split('-')[0] + " said " + identifier.split('-')[1])
                 nameCounters[i] = nameCounters[i].split('|')[0] + "|" + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
-            print("ERROR IDK")
+            print("ERROR IDK")'''
+    for key in counters.keys():
+        if key == str(message.author.id):
+            for keyword in counters[key].keys():
+                if keyword in message_contents:
+                    counters[key][keyword] += 1
 
-    namesCountText = ""
+
+    '''namesCountText = ""
     for i in range(len(nameCounters) - 1):
         namesCountText += str(nameCounters[i].replace('\n', '')) + "\n"
     namesCountText += str(nameCounters[-1])
 
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "w")
     namesCountFile.write(namesCountText)
-    namesCountFile.close()
+    namesCountFile.close()'''
+    with open('names_count.json', 'w') as f:
+        json.dump(counters, f)
+
     
     rand_num = random.randrange(0, 500)
 
