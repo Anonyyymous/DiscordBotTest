@@ -51,8 +51,13 @@ async def send(channel, text):  # might need to @client.event wrapper but dont t
 
 @client.event
 async def on_message(message):
-    if message.author == client.user or message.channel.id == 1186331140030746764:  # for bot-free zone, could be loaded into a json later for bot-free channels
+    if message.author == client.user:  # for bot-free zone, could be loaded into a json later for bot-free channels
         return
+    
+    async def send(text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
+        if message.channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
+            return
+        await message.channel.send(random.choice(text))
     
     global playing_hunger_games, game_manager, counters
     message_contents_full = message.content.lower()
