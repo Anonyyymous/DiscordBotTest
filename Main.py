@@ -43,10 +43,11 @@ async def on_ready():  # executed on bot setup
     await channel.send(client.user.display_name + " up and running.")
     # await client.user.edit(username="John's assistant")
 
-'''async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
+@client.command(pass_context=True)  # idk i stole it from online :p
+async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
     if channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
         return
-    await channel.send(random.choice(text))'''
+    await channel.send(random.choice(text))
 
 
 @client.event
@@ -96,10 +97,14 @@ async def on_message(message):
                 nameCounters[i] = nameCounters[i].split('|')[0] + "|" + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
             print("ERROR IDK")'''
+    await send(message.channel, "cring rn")
     for key in counters.keys():
         if ids[key] == str(message.author.id):  # use actual names for more readability
+            await message.channel.send(f"{key} said something !!")
             for keyword in counters[key].keys():
+                
                 if keyword in message_contents:
+                    await message.channel.send(f"{key} said {keyword} !!")
                     counters[key][keyword] += 1
 
 
