@@ -40,22 +40,35 @@ class GameManager:
         print("game set up")
 
     def rand_from_list(self, list):
+        '''
+        Returns a random value between 0 and list length
+        '''
         return random.randint(0, len(list)-1)
     
     def rand_value_from_list(self, list):
+        '''
+        Returns a random value from the list
+        '''
         return list[self.rand_from_list(list)]
     
     def random_chance(self, chance):
+        '''
+        Takes a decimal chance, generates a random number between 0 and 1, and returns true if the chance is greater than the random value.
+        If our chance was 0.4, and we got .3, this would be false, but if we got .6, this would be true.
+        '''
         return random.uniform(0, 1) < chance
     
     def get_kill(self, environment, players):
+        '''
+        Gets a way of death for a player in their environment
+        '''
         players -= 1  # so it works with the list
         if players == 0:
             deaths = environments[environment]["deaths"][0]
             return self.rand_value_from_list(deaths)
         
         if self.random_chance(self.environment_chance):
-            deaths = environments[environment]["deaths"][players]
+            deaths = environments[environment]["deaths"][players]  # this may not increment the kills, idrk
             return self.rand_value_from_list(deaths)
         return self.rand_value_from_list(pvps)
     
@@ -71,6 +84,9 @@ class GameManager:
         return self.get_kill(victim.environment, 1).replace("(v)", victim.name) + "\n"
     
     def kill_player(self, victim, killer):
+        '''
+        Returns the method of death of a player to a killer, and removes the victim from the lists, also incrementing the killer's kills
+        '''
         if victim == killer:
             return ""
         self.remove_player(victim)
@@ -79,6 +95,9 @@ class GameManager:
         return method.replace("(k)", killer.name).replace("(v)", victim.name) + "\n"
 
     def play_round_one(self):  # only kills
+        '''
+        Simulates round 1 of the games, which has slightly different probabilities.
+        '''
         output_string = "Welcome to the hunger games\n"
         environments["planes"]["players"] = [x for x in self.players]  # send them all to the planes, cannot
         # print(environments["planes"]["players"])
@@ -102,7 +121,7 @@ class GameManager:
     
     def migrate_players(self):
         '''
-        loops through players, if they get lucky, they migrate.
+        Loops through players, if they get lucky, they migrate - changing their current environment
         Then removes player from old environment, adds them to new ones
         '''
         output_string = ""
@@ -125,6 +144,9 @@ class GameManager:
         return output_string
 
     def move_to_planes(self):  # a modified version of migrate
+        '''
+        Moves all players to planes so the last few will actually fight
+        '''
         output_string = ""
         for player in self.players:
             if player.environment == "planes":
@@ -139,7 +161,7 @@ class GameManager:
     
     def fight_players(self, player1, player2):
         '''
-        returns the winner
+        Returns the winner and loser of a battle, in that order
         '''
         player1_score = player1.damage + random.randint(0, self.damage_range)
         player2_score = player2.damage + random.randint(0, self.damage_range)
@@ -148,6 +170,9 @@ class GameManager:
         return player2, player1
 
     def declare_winner(self):
+        '''
+        Returns the winner of a games in a formatted string, to be returned straight away from play_round()
+        '''
         output_string = ""
         winner = self.players[0]
         output_string += f"\n\n{winner.name} won the game with {winner.kills} kills"
@@ -157,7 +182,7 @@ class GameManager:
 
     def play_round(self):
         '''
-        returns a string to print
+        Returns a string to print, based on results of one round. Probabilities are slightly different on the first round.
         '''
         if self.round == 0:
             return self.play_round_one()# + self.get_summary()
@@ -172,7 +197,7 @@ class GameManager:
             player2 = [x for x in self.players if x != player][0]  # just gets the other player
             output_string += self.kill_player(player, player2)
         else:
-            for envrionment in environments:
+            for envrionment in environments:  # all of this should really go into a function, there is way too much indentation
                 env = environments[envrionment]
                 if len(env["players"]) <= 0:  # if no one is there
                     pass
@@ -207,11 +232,15 @@ class GameManager:
                     
 
 def clean_input_for_games(inp):
+    '''
+    Converts input string to list of players to play the game with
+    '''
     list = inp.split("|")
     players = list[1:]
     return players
         
 
+# below code is for testing. If not commented out, the rest of the code wont run, due to the input("--") line
 '''test_players = ["John", "Beth", "Sofi", "Chris", "Chloe", "Ossian", "Tom"]
 gm = GameManager(test_players)
 for i in range(10):
