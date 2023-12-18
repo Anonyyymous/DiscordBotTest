@@ -30,10 +30,6 @@ responsesFile = open(os.path.join(thisDir, "responses.txt"), "r")
 responses = responsesFile.readlines()
 responsesFile.close()
 
-namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
-nameCounters = namesCountFile.readlines()
-namesCountFile.close()
-
 stored_file_name = os.path.realpath(os.path.join(thisDir, "NamesCount.txt"))  # i think just "NamesCount.txt" should work, im not sure what prompted this
 
 @client.event
@@ -72,13 +68,20 @@ async def on_message(message):
                         answers = response[3].split('//')
                         await message.channel.send(random.choice(answers))
 
+    namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
+    nameCounters = namesCountFile.readlines()
+    namesCountFile.close()
+
     for i in range(len(nameCounters)):
-        currentNameCounter = nameCounters[i].replace('\n', '')
-        if currentNameCounter == "\n":
-            continue
-        identifier = currentNameCounter.split('|')[0]
-        if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
-            nameCounters[i] = int(identifier.split('-')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
+        try:
+            currentNameCounter = nameCounters[i].replace('\n', '')
+            if currentNameCounter == "\n":
+                continue
+            identifier = currentNameCounter.split('|')[0]
+            if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
+                nameCounters[i] = int(identifier.split('-')[0]) + int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1])
+        except:
+            print("ERROR IDK")
 
     namesCountText = ""
     for i in range(len(nameCounters) - 1):
