@@ -82,8 +82,8 @@ async def on_message(message):
 
     namesCountText = ""
     for i in range(len(nameCounters) - 1):
-        namesCountText += nameCounters[i] + '\n'
-    namesCountText += nameCounters[-1]
+        namesCountText += str(nameCounters[i] + "\n")
+    namesCountText += str(nameCounters[-1])
 
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "w")
     namesCountFile.write(namesCountText)
