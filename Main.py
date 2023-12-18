@@ -43,10 +43,10 @@ async def on_ready():  # executed on bot setup
     await channel.send(client.user.display_name + " up and running.")
     # await client.user.edit(username="John's assistant")
 
-async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
+'''async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
     if channel.id == 1186331140030746764:  # if channel.id in bot_free_channels
         return
-    await channel.send(random.choice(text))
+    await channel.send(random.choice(text))'''
 
 
 @client.event
