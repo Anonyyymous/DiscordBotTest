@@ -112,7 +112,7 @@ async def on_message(message):
         namesCountFile.close()
         text = ""
         for i in range(len(nameCounters)):
-            text += nameCounters[i]
+            text += "<@" + nameCounters[i].split('|')[0].split('-')[0] + "> " + nameCounters[i].split('|')[0].split('-')[1] + " count: " + nameCounters[i].split('|')[1] + "\n"
         await message.channel.send(text)
 
 client.run(token)
