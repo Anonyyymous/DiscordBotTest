@@ -33,6 +33,9 @@ stored_file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Nam
 async def on_ready():  # executed on bot setup
     print("logged in as {0.user}".format(client))
     get_names()
+    await client.wait_until_ready()
+    channel = client.get_channel(1181162678740324392)
+    await channel.send("John's Assistant up and running.")
     # await client.user.edit(username="John's assistant")
 
 @client.event
@@ -48,6 +51,8 @@ async def on_message(message):
     print(message.author, ": ", message.content)
 
     if message_contents == "-updatebot":
+        message.channel.send("Restarting...")
+        await client.logout()
         exit()
 
     rand_num = random.randrange(0, 500)
