@@ -35,7 +35,7 @@ async def on_ready():  # executed on bot setup
     get_names()
     await client.wait_until_ready()
     channel = client.get_channel(1181162678740324392)
-    await channel.send("John's Assistant up and running.")
+    await channel.send("John's Assistant up and running 1.")
     # await client.user.edit(username="John's assistant")
 
 @client.event
