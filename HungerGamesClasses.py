@@ -49,7 +49,8 @@ class GameManager:
         '''
         Returns a random value from the list
         '''
-        return list[self.rand_from_list(list)]
+        return random.choice(list)
+        # return list[self.rand_from_list(list)]
     
     def random_chance(self, chance):
         '''
