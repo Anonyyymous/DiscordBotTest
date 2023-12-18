@@ -60,10 +60,14 @@ async def on_message(message):
 
     for i in range(len(responses)):
         for j in range(len(responses[i].split('<>')[0].split('//'))):
-            if responses[i].split('<>')[0].split('//')[j] in message_contents and message.author.id in responses[i].split('<>')[1].split('//'):
-                if random.random() < responses[i].split('<>')[2]:
-                    answers = responses[i].split('<>')[3].split('//')
-                    await message.channel.send(random.choice(answers))
+            print("Checking " + responses[i].split('<>')[0].split('//')[j])
+            if responses[i].split('<>')[0].split('//')[j] in message_contents:
+                print("Found " + responses[i].split('<>')[0].split('//')[j] + " in message.")
+                if message.author.id in responses[i].split('<>')[1].split('//'):
+                    print("Correct id.")
+                    if random.random() < responses[i].split('<>')[2]:
+                        answers = responses[i].split('<>')[3].split('//')
+                        await message.channel.send(random.choice(answers))
 
     rand_num = random.randrange(0, 500)
 
