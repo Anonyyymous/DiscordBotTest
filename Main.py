@@ -101,8 +101,8 @@ async def on_message(message):
     if message_contents == "-tree":
         await send(message.channel, str(counters))
     for key in counters.keys():
-        await message.channel.send(f"{key}/{ids[key]}, {message.author.id}")
-        if ids[key] == str(message.author.id):  # use actual names for more readability
+        # await message.channel.send(f"{key}/{ids[key]}, {message.author.id}")
+        if ids[key] == str(message.author.id).strip():  # use actual names for more readability
             await message.channel.send(f"{key} said something !!")
             for keyword in counters[key].keys():
                 
