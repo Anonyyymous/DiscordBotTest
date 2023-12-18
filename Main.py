@@ -79,6 +79,7 @@ async def on_message(message):
                 continue
             identifier = currentNameCounter.split('|')[0]
             if identifier.split('-')[1] in message_contents and identifier.split('-')[0] == str(message.author.id):
+                print(identifier.split('-')[0] + " said " + identifier.split('-')[1])
                 nameCounters[i] = nameCounters[i].split('|')[0] + str(int(nameCounters[i].split('|')[1]) + message_contents.count(identifier.split('-')[1]))
         except:
             print("ERROR IDK")
