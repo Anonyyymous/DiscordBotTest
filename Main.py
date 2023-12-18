@@ -19,7 +19,7 @@ intents = discord.Intents(messages=True, guilds=True, message_content=True)
 client = discord.Client(intents=intents)
 
 # initialising other variables
-ids = {"john": 331837038024327182, "lauren": 423146074233110528, "isaac": 386783880637579286}
+ids = {"john": 331837038024327182, "lauren": 423146074233110528, "isaac": 386783880637579286, "kerry": 736925796584915024}
 playing_hunger_games = False
 game_manager = None
 
@@ -85,7 +85,7 @@ async def on_message(message):
         except:
             print("ERROR IDK")'''
     for key in counters.keys():
-        if key == str(message.author.id):
+        if ids[key] == str(message.author.id):  # use actual names for more readability
             for keyword in counters[key].keys():
                 if keyword in message_contents:
                     counters[key][keyword] += 1
