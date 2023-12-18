@@ -55,12 +55,12 @@ async def on_message(message):
 
     for i in range(len(responses)):
         response = responses[i].split('<>')
-        words = response[0].split('//')
+        words = response[0].split('__')
         for j in range(len(words)):
             if words[j] in message_contents:
-                if str(message.author.id) in response[1].split('//') or response[1] == "all":
+                if str(message.author.id) in response[1].split('__') or response[1] == "all":
                     if random.random() < float(response[2]):
-                        answers = response[3].split('//')
+                        answers = response[3].split('__')
                         await message.channel.send(random.choice(answers))
 
     namesCountFile = open(os.path.join(thisDir, "NamesCount.txt"), "r")
