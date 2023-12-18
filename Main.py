@@ -96,7 +96,7 @@ async def on_message(message):
             3:"she don't love you little bro",
             4:"unbelivably down bad"
         }
-        await message.channel.send(ashResponses[random.randint(1,ashResponses.__len__)])
+        await message.channel.send(random.choice(ashResponses))
     elif message.author.id != ids["lauren"] and message_contents == "-summon isaac":  # heheheha
         print("summoning isaac")
         await message.channel.send("<@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286> <@386783880637579286>")
