@@ -43,6 +43,9 @@ async def send(channel, text):  # might need to @client.event wrapper but dont t
         return
     await channel.send(text)
 
+async def log(text):
+    await client.get_channel(1186359268073554071).send(text)
+
 @client.event
 async def on_message(message):
     if message.author == client.user:  # for bot-free zone, could be loaded into a json later for bot-free channels
