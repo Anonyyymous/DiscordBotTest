@@ -101,8 +101,8 @@ async def on_message(message):
                 text += GetName(phrase.split('|')[0].split('-')[0]) + " " + phrase.split('|')[0].split('-')[1] + " count: " + phrase.split('|')[1]
     
             await send(message.channel, text)
-    except:
-        await send(message.channel, "an error occured")
+    except Exception as e:
+        await send(message.channel, "an error occured:", str(e))
 
 async def HandleResponses(message):
     for i in range(len(responses)):
