@@ -16,7 +16,7 @@ token = file.readline()
 file.close()
 
 # initialising bot
-intents = discord.Intents(messages=True, guilds=True, message_content=True)
+intents = discord.Intents(messages=True, guilds=True, message_content=True, presences=True)
 client = discord.Client(intents=intents)
 
 # initialising other variables
@@ -90,7 +90,7 @@ async def on_message(message):
             temp = client.get_guild(message.channel.guild.id)
             await log(f"members: {message.guild.members}, {temp}, {temp.members}")
             str1 = ''.join(f"<@{member_id}> " for i in range(10))
-            await send(message.channel, str1)  # im being generous
+            # await send(message.channel, str1)  # im being generous
         elif message_contents == "-counters":
             phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
             currentCounts = phraseCountFile.readlines()
