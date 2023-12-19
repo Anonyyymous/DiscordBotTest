@@ -15,3 +15,4 @@ treasure__summon<>all<>1<>with this treasure i summon
 buddy__holly<>all<>.31<>she buddy on my holly till i oooo weee oooo
 figure<>all<>.3<>figure it out?
 say gex<>all<>1<>gex
+back__shots<>all<>.5<>https://tenor.com/view/gojo-gojo-satoru-gojo-season-2-hip-thrust-reaction-gif-10399129046512126318
