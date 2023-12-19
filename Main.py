@@ -90,7 +90,7 @@ async def on_message(message):
             await send(message.channel, get_day())
         elif "-roulette" == message_contents:
             global roulette_avaliable_time
-            if roulette_avaliable_time > dt.datetime.now():
+            if roulette_avaliable_time < dt.datetime.now() or message.author.id == ids["john"]:
                 roulette_avaliable_time = dt.datetime.now() + dt.timedelta(minutes=random.range(10, 100))
                 member_id = random.choice(message.guild.members).id
                 await send(message.channel, ''.join(f"<@{member_id}> " for i in range(10)))  # im being generous
