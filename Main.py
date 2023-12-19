@@ -85,7 +85,7 @@ async def on_message(message):
     elif "-timetable" == message_contents:
         await send(message.channel, get_day())
     elif "-roulette" == message_contents:
-        member_id = random.choice(message.guild.members)
+        member_id = random.choice(message.guild.members).id
         str1 = ''.join(f"<@{member_id}> " for i in range(10))
         await send(message.channel, str1)  # im being generous
     elif message_contents == "-counters":
