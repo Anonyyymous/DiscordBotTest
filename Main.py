@@ -102,7 +102,7 @@ async def on_message(message):
     
             await send(message.channel, text)
     except Exception as e:
-        await send(message.channel, "an error occured:", e)
+        await send(message.channel, f"an error occured: {e}")
 
 async def HandleResponses(message):
     for i in range(len(responses)):
