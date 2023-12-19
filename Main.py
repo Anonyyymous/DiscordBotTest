@@ -33,6 +33,7 @@ responsesFile.close()
 @client.event
 async def on_ready():  # executed on bot setup
     print("logged in as {0.user}".format(client))
+    roulette_avaliable_time = dt.datetime.now()
     #get_names()
     await client.wait_until_ready()
     channel = client.get_channel(1186638026781249606)
@@ -88,6 +89,7 @@ async def on_message(message):
         elif "-timetable" == message_contents:
             await send(message.channel, get_day())
         elif "-roulette" == message_contents:
+            global roulette_avaliable_time
             if roulette_avaliable_time > dt.datetime.now():
                 roulette_avaliable_time = dt.datetime.now() + dt.timedelta(minutes=random.range(10, 100))
                 member_id = random.choice(message.guild.members).id
