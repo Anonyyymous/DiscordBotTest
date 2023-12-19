@@ -73,33 +73,36 @@ async def on_message(message):
         await send(message.channel, "kill yourself - wiktor")
 
     # activities
-    if "-hungergames" == message_contents[:12]:
-        if playing_hunger_games:
-            # -hungergames|john|isaac|lauren|wiktor|george|kerry|biggie dikkie mikkie|matteo|filip
-            output, playing_hunger_games = game_manager.play_round()
-            await send(message.channel, output)
-        else:
-            playing_hunger_games = True
-            game_manager = GameManager(clean_input_for_games(message_contents))
-            await send(message.channel, game_manager.play_round()[0])
-    elif "-timetable" == message_contents:
-        await send(message.channel, get_day())
-    elif "-roulette" == message_contents:
-        member_id = random.choice(message.guild.members).id
-        await log("" + message.guild.members)
-        str1 = ''.join(f"<@{member_id}> " for i in range(10))
-        await send(message.channel, str1)  # im being generous
-    elif message_contents == "-counters":
-        phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
-        currentCounts = phraseCountFile.readlines()
-        phraseCountFile.close()
-        
-        text = ""
-        
-        for phrase in currentCounts:
-            text += GetName(phrase.split('|')[0].split('-')[0]) + " " + phrase.split('|')[0].split('-')[1] + " count: " + phrase.split('|')[1]
-
-        await send(message.channel, text)
+    try:
+        if "-hungergames" == message_contents[:12]:
+            if playing_hunger_games:
+                # -hungergames|john|isaac|lauren|wiktor|george|kerry|biggie dikkie mikkie|matteo|filip
+                output, playing_hunger_games = game_manager.play_round()
+                await send(message.channel, output)
+            else:
+                playing_hunger_games = True
+                game_manager = GameManager(clean_input_for_games(message_contents))
+                await send(message.channel, game_manager.play_round()[0])
+        elif "-timetable" == message_contents:
+            await send(message.channel, get_day())
+        elif "-roulette" == message_contents:
+            member_id = random.choice(message.guild.members).id
+            await log(f"{message.guild.members}")
+            str1 = ''.join(f"<@{member_id}> " for i in range(10))
+            await send(message.channel, str1)  # im being generous
+        elif message_contents == "-counters":
+            phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
+            currentCounts = phraseCountFile.readlines()
+            phraseCountFile.close()
+            
+            text = ""
+            
+            for phrase in currentCounts:
+                text += GetName(phrase.split('|')[0].split('-')[0]) + " " + phrase.split('|')[0].split('-')[1] + " count: " + phrase.split('|')[1]
+    
+            await send(message.channel, text)
+    except:
+        await send(message.channel, "an error occured")
 
 async def HandleResponses(message):
     for i in range(len(responses)):
