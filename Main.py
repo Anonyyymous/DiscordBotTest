@@ -86,11 +86,7 @@ async def on_message(message):
         await send(message.channel, get_day())
     elif "-roulette" == message_contents:
         member_id = random.choice(message.guild.members)
-        await log(f"{message.guild.members}")
-        await log(f"{message.guild.name}")
-        st = f"{member_id}"
-        str1 = ''.join(f"<{member_id}> " for i in range(10))
-        await send(message.channel, st)
+        str1 = ''.join(f"<@{member_id}> " for i in range(10))
         await send(message.channel, str1)  # im being generous
     elif message_contents == "-counters":
         phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
