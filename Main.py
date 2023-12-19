@@ -84,6 +84,9 @@ async def on_message(message):
             await send(message.channel, game_manager.play_round()[0])
     elif "-timetable" == message_contents:
         await send(message.channel, get_day())
+    elif "-roulette" == message_contents:
+        member_id = Random.choice(message.guild.members)
+        await send(message.channel, ''.join(f"<{member_id}>" for i in range(10))  # im being generous
     elif message_contents == "-counters":
         phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
         currentCounts = phraseCountFile.readlines()
