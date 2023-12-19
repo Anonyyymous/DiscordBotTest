@@ -85,7 +85,7 @@ async def on_message(message):
     elif "-timetable" == message_contents:
         await send(message.channel, get_day())
     elif "-roulette" == message_contents:
-        member_id = Random.choice(message.guild.members)
+        member_id = random.choice(message.guild.members)
         await log(f"{message.guild.members}")
         await log(f"{message.guild.name}")
         st = f"{member_id}"
