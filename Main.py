@@ -88,7 +88,7 @@ async def on_message(message):
         elif "-roulette" == message_contents:
             member_id = random.choice(message.guild.members).id
             # temp = client.fetch_guild(message.channel.guild
-            await log(f"members: {message.guild.members}, {client.fetch_guild(message.channel.guild.id)}")
+            await log(f"members: {message.guild.members}, {client.get_guild(message.channel.guild.id)}")
             str1 = ''.join(f"<@{member_id}> " for i in range(10))
             await send(message.channel, str1)  # im being generous
         elif message_contents == "-counters":
