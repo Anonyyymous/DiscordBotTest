@@ -4,6 +4,7 @@ import regex
 import random
 from HungerGamesClasses import Player, GameManager, clean_input_for_games
 from TimetableChecker import get_day
+import datetime as dt
 import json
 
 thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -21,6 +22,7 @@ client = discord.Client(intents=intents)
 
 # initialising other variables
 ids = {"john": 331837038024327182, "lauren": 423146074233110528, "isaac": 386783880637579286, "kerry": 736925796584915024}
+roulette_avaliable_time = dt.datetime.now()
 playing_hunger_games = False
 game_manager = None
 
@@ -86,11 +88,12 @@ async def on_message(message):
         elif "-timetable" == message_contents:
             await send(message.channel, get_day())
         elif "-roulette" == message_contents:
-            member_id = random.choice(message.guild.members).id
-            # temp = client.get_guild(message.channel.guild.id)
-            # await log(f"members: {message.guild.members}, {temp}, {temp.members}")
-            # str1 = ''.join(f"<@{member_id}> " for i in range(10))
-            await send(message.channel, ''.join(f"<@{member_id}> " for i in range(10)))  # im being generous
+            if roulette_avaliable_time > dt.datetime.now():
+                roulette_avaliable_time = dt.datetime.now() + dt.timedelta(minutes=random.range(10, 100))
+                member_id = random.choice(message.guild.members).id
+                await send(message.channel, ''.join(f"<@{member_id}> " for i in range(10)))  # im being generous
+            else:
+                await send(message.channel, "wait")  # im being generous
         elif message_contents == "-counters":
             phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
             currentCounts = phraseCountFile.readlines()
