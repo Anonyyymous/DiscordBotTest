@@ -112,9 +112,12 @@ async def HandleCounters(message):
     phraseCounters = phraseCounterDefinitions.readlines()
     phraseCounterDefinitions.close()
     
-    phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
-    currentCounts = phraseCountFile.read()
-    phraseCountFile.close()
+    if os.path.exists(os.path.join(os.getcwd(),"local/phraseCounters.txt")):
+        phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "r")
+        currentCounts = phraseCountFile.read()
+        phraseCountFile.close()
+    else:
+        currentCounts = ""
     
     text = ""
     
@@ -137,7 +140,7 @@ async def HandleCounters(message):
                 text += match.group(0)
             except:
                 text += phrase + "|0\n"
-               
+    
     phraseCountFile = open(os.path.join(os.getcwd(),"local/phraseCounters.txt"), "w") 
     phraseCountFile.write(text)
     phraseCountFile.close()
