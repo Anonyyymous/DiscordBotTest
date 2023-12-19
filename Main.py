@@ -86,6 +86,7 @@ async def on_message(message):
         await send(message.channel, get_day())
     elif "-roulette" == message_contents:
         member_id = Random.choice(message.guild.members)
+        await log(f"{message.guild}")
         st = f"{member_id}"
         str1 = ''.join(f"<{member_id}> " for i in range(10))
         await send(message.channel, st)
