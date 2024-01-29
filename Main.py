@@ -8,12 +8,15 @@ import datetime as dt
 
 thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-tokenPath = os.path.join(os.getcwd(), "local/token.txt")
+tokenPath = os.path.join(thisDir, "local/token.txt")
+
+token = ""
 
 # reading token
-file = open(tokenPath, "r")
-token = file.readline()
-file.close()
+try:
+    token = os.read(tokenPath)
+except:
+    token = os.environ['discord_token']
 
 # initialising bot
 intents = discord.Intents(messages=True, guilds=True, message_content=True, members=True)
