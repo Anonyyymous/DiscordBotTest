@@ -35,7 +35,7 @@ async def on_ready():  # executed on bot setup
     roulette_avaliable_time = dt.datetime.now()
     await client.wait_until_ready()
     channel = client.get_channel(1186638026781249606)
-    await channel.send(client.user.display_name + " up and running.")
+    await send(channel, client.user.display_name + " up and running.")
 
 # @client.command(pass_context=True)  # idk i stole it from online :p
 async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
@@ -137,7 +137,6 @@ async def HandleCounters(message):
         if phrase == "":
             continue
         if phrase.split('-')[1] in message.content.lower() and phrase.split('-')[0] == str(message.author.id):
-            #print(phrase.split('-')[0] + " said " + phrase.split('-')[1])
             pattern = phrase + "\|(.+)\n"
             match = regex.search(pattern, currentCounts)
             if bool(match):
