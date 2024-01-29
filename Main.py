@@ -10,20 +10,17 @@ thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 tokenPath = os.path.join(thisDir, "local/token.txt")
 
-token = ""
-
 # reading token
-try:
-    token = os.read(tokenPath)
-except:
-    token = os.environ['discord_token']
+file = open(tokenPath, "r")
+token = file.readline()
+file.close()
+print("Token read from file.")
 
 # initialising bot
 intents = discord.Intents(messages=True, guilds=True, message_content=True, members=True)
 client = discord.Client(intents=intents)
 
 # initialising other variables
-ids = {"john": 331837038024327182, "lauren": 423146074233110528, "isaac": 386783880637579286, "kerry": 736925796584915024}
 roulette_avaliable_time = dt.datetime.now()
 playing_hunger_games = False
 game_manager = None
@@ -36,11 +33,9 @@ responsesFile.close()
 async def on_ready():  # executed on bot setup
     print("logged in as {0.user}".format(client))
     roulette_avaliable_time = dt.datetime.now()
-    #get_names()
     await client.wait_until_ready()
     channel = client.get_channel(1186638026781249606)
     await channel.send(client.user.display_name + " up and running.")
-    # await client.user.edit(username="John's assistant")
 
 # @client.command(pass_context=True)  # idk i stole it from online :p
 async def send(channel, text):  # might need to @client.event wrapper but dont think so. If this doesnt work, just replace it for now
@@ -92,7 +87,7 @@ async def on_message(message):
             await send(message.channel, get_day())
         elif "-roulette" == message_contents:
             global roulette_avaliable_time
-            if roulette_avaliable_time < dt.datetime.now() or message.author.id == ids["john"]:
+            if roulette_avaliable_time < dt.datetime.now():
                 roulette_avaliable_time = dt.datetime.now() + dt.timedelta(minutes=random.randrange(10, 100))
                 member_id = random.choice(message.guild.members).id
                 await send(message.channel, ''.join(f"<@{member_id}> " for i in range(10)))  # im being generous
@@ -167,8 +162,15 @@ def GetName(id):
     file.close()
     
     pattern = str(id) + "-(.+)\n"
-    #print(pattern)
-    #print(text)
+    match = regex.search(pattern, text)
+    return match.group(1)
+
+def GetId(name: str):
+    file = open(os.path.join(os.getcwd(), "data/idNameConversion.txt"))
+    text = file.read()
+    file.close()
+
+    pattern = "(.+)-" + name + "\n"
     match = regex.search(pattern, text)
     return match.group(1)
 
