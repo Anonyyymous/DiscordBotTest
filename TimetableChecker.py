@@ -4,7 +4,7 @@ import datetime as dt
 lessonTimes = [dt.time(1, 0), dt.time(9, 0), dt.time(9, 55), dt.time(10, 50), dt.time(11, 10), dt.time(12, 5),
                dt.time(13, 0), dt.time(13, 55), dt.time(14, 50), dt.time(15, 45), dt.time(16, 40), dt.time(23, 50)]
 
-data = pd.read_csv("timetable.csv")
+data = pd.read_csv("data/timetable.csv")
 
 
 def get_day():  # TODO

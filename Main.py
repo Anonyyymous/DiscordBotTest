@@ -2,10 +2,9 @@ import discord
 import os
 import regex
 import random
-from HungerGamesClasses import Player, GameManager, clean_input_for_games
+from HungerGamesClasses import GameManager, clean_input_for_games
 from TimetableChecker import get_day
 import datetime as dt
-import json
 
 thisDir = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
@@ -26,7 +25,7 @@ roulette_avaliable_time = dt.datetime.now()
 playing_hunger_games = False
 game_manager = None
 
-responsesFile = open(os.path.join(thisDir, "responses.txt"), "r")
+responsesFile = open(os.path.join(thisDir, "data/responses.txt"), "r")
 responses = responsesFile.readlines()
 responsesFile.close()
 
@@ -122,7 +121,7 @@ async def HandleResponses(message):
                         await send(message.channel, random.choice(answers))
 
 async def HandleCounters(message):
-    phraseCounterDefinitions = open(os.path.join(os.getcwd(), "phraseCounterDefinitions.txt"), "r")
+    phraseCounterDefinitions = open(os.path.join(os.getcwd(), "data/phraseCounterDefinitions.txt"), "r")
     phraseCounters = phraseCounterDefinitions.readlines()
     phraseCounterDefinitions.close()
     
@@ -160,7 +159,7 @@ async def HandleCounters(message):
     phraseCountFile.close()
 
 def GetName(id):
-    file = open(os.path.join(os.getcwd(), "idNameConversion.txt"))
+    file = open(os.path.join(os.getcwd(), "data/idNameConversion.txt"))
     text = file.read()
     file.close()
     
